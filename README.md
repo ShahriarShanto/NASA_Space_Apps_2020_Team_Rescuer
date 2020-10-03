@@ -8,7 +8,7 @@ The project is live here: [flood-predict.herokuapp.com](https://flood-predict.he
 - [nbviewer](https://nbviewer.jupyter.org/github/ShahriarShanto/NASA_Space_Apps_2020_Team_Rescuer/blob/main/machine%20learning/Flood%20Prediction%20with%20CNN.ipynb)
 
 Contributors to this code:
-- [ShahriarShanto](https://github.com/ShahriarShanto)
+- [Shahriar Shanto](https://github.com/ShahriarShanto)
 - Sohanur Rahman
 - [Debasish Sarker](https://github.com/ds-joy)
 
