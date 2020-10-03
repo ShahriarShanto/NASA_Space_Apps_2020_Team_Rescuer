@@ -4,9 +4,9 @@ The project is live here: [flood-predict.herokuapp.com](https://flood-predict.he
 
 
 Contributors to this code:
-- ShahriarShanto @ShahriarShanto
+- [ShahriarShanto](https://github.com/ShahriarShanto)
 - Sohanur Rahman 
-- Debasish Sarker @ds-joy
+- [Debasish Sarker](https://github.com/ds-joy)
 
 Other Team Members:
 - Shabik Zaheer
