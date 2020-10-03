@@ -1,1 +1,3 @@
-# NASA_Space_Apps_2020_Team-Rescue
+# NASA Space Apps Challenge 2020: TeamRescue
+
+The project is live here: [flood-predict.herokuapp.com](https://flood-predict.herokuapp.com)
