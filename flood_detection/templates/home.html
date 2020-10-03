@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/main1.css">
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <!-- <script src='static/index.js'></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
+
+    <script>
+        $(function () {
+            $("select").select2();
+          });
+        </script>
+
+    <title>Flood Detection</title>
+    
+    
+</head>
+<style>
+
+</style>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="static/res/logo.png" alt="NASA logo">
+            <h2> Team Rescuer | Automated Detection of Floods <h2>            
+        </div>
+        
+
+        <div class="main">
+
+           <div id = "select_menu">
+                <label class="label" for="areas">Select your area:</label>
+
+                <select id="category" size="1" class = "select" onchange="show_plot()">
+                    <option value=""  selected="true">Select Area</option>
+                    {%for area in json_data.keys()%}
+                    <option>{{area}}</option>
+                    {%endfor%}
+                </select>              
+            </div>
+      
+      <div id="main_table" style="display : none">
+      <table class="t2">
+        <tr>
+          <td>
+            <table id="t01">
+    
+                <tr>
+                  <td>Water Level</td>
+                  <td id="water_level"></td>
+                </tr>
+                <tr>
+                  <td>Flood Occurance Probability</td>
+                  <td id="flood_prob"></td>
+                </tr>
+                <tr>
+                  <td>Flooding Starts</td>
+                  <td id="expcted_time"></td>
+                </tr>
+                <tr>
+                    <td>Population</td>
+                    <td>100K</td>
+                  </tr>
+                <tr>
+                    <td>Duration</td>
+                    <td id="duration"></td>
+                  </tr>
+              </table>
+            
+           </td>
+          <td>
+        <div id='yearly_plot'></div>
+      </td>
+      
+      </tr>
+      </table>
+    </div>  
+  </div>
+
+         
+        <div class="footer">
+            <img src="static/res/nasa.png" alt="NASA logo">
+            <h3> NASA Space Apps Challenge 2020</h3>
+            <img src="static/res/nasa.png" alt="NASA logo">
+        </div>
+
+    </div>
+    
+    
+</body>
+
+<script>
+        
+        ////////////////////////////////////// JS block ///////////////////////
+        function show_plot() {
+        var xValue = ["August", "September", "October", "November", "December","January", "February", "March", "April", "May", "June", "July" ];
+        var area = document.getElementById("category").value;
+        var json_data =    {{json_data|tojson}};
+        document.getElementById("water_level").innerHTML =Math.max.apply(null,json_data[area]).toFixed(2) + "cm"
+        document.getElementById("flood_prob").innerHTML = (json_data[area][1]/(json_data[area][1] + 5) * 100).toFixed(2) + "%"
+        
+        var arr = json_data[area]
+        var maxIndex = 0
+        var    max = 0
+        for (var i = 1; i < arr.length; i++) {
+        if (arr[i] > max) {
+            var maxIndex = i;
+            max = arr[i];
+        }
+    }
+
+        document.getElementById("expcted_time").innerHTML = xValue[maxIndex-1]
+        if (arr[maxIndex+1] - arr[maxIndex+2] < 15 ){
+        document.getElementById("duration").innerHTML = "60 Days"
+        }
+        else {
+          document.getElementById("duration").innerHTML = "30 Days"
+        }
+        
+        var data = [
+        {x: xValue, y:json_data[area],type: 'bar',
+        marker: {
+            color: 'rgb(158,202,225)',
+            opacity: 0.9,
+            line: {
+            color: 'rgb(8,48,107)',
+            width: 1.5
+            }}}
+        ]
+        var layout = {
+        title: 'Predicted Flood Plot : ' + area,
+        xaxis: {
+        title: 'Month',
+        autorange: true,
+        fixedrange: true
+        
+        },
+        yaxis: {
+        title: 'Water Level (cm)',
+        fixedrange: true,
+        },
+        // plot_bgcolor:"#097cda",
+        // paper_bgcolor:"#097cda"
+        };
+        
+        Plotly.newPlot('yearly_plot', data, layout,{displayModeBar: false});
+        
+        var table = document.getElementById("main_table");
+        table.style.display = "block";
+
+      }
+</script>
+
+</html>
