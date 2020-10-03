@@ -1,4 +1,4 @@
-# NASA Space Apps Challenge 2020: Team Rescue
+# NASA Space Apps Challenge 2020: Team Rescuer
 ## Team Rescuer | Automated Detection of Floods
 The project is live here: [flood-predict.herokuapp.com](https://flood-predict.herokuapp.com)
 
